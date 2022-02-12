@@ -4,17 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-
 class CategoryController extends Controller
 {
+    
+    public function __construct(Category $category, Request $req) {
+        $this->req = $req;
+        $this->category = $category;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         //
+        $categories = $this->category->orderBy("display_order")->get();
+        return view('admin.categories.index', [
+            'categories' => $categories
+        ]);
     }
 
     /**
