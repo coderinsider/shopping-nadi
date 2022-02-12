@@ -11286,3 +11286,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.navbar-light {
+  background: #ed4545 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
