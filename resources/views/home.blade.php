@@ -9,22 +9,12 @@
 </p>
 <img src="/images/patio.jpg" class="home">
 <div class="menu-categories">
+    @foreach($categories as $category)
     <article>
-        <a href="#"><img src="/images/mushrooms.jpg"></a>
-        <h2><a href="#">Starters</a></h2>
-    </article>                
-    <article>
-        <a href="#"><img src="/images/salad.jpg"></a>
-        <h2><a href="#">Salads</a></h2>
-    </article>                
-    <article>
-        <a href="#"><img src="/images/burger.jpg"></a>
-        <h2><a href="#">Entrees</a></h2>
-    </article>                
-    <article>
-        <a href="#"><img src="/images/brownie.jpg"></a>
-        <h2><a href="#">Desserts</a></h2>
-    </article>                
+        <a href="/menu#{{$category->name}}"><img src="/images/{{$category->image}}"></a>
+        <h2><a href="/menu#{{$category->name}}">Starters</a></h2>
+    </article> 
+    @endforeach                              
 </div>
 <div class="social">
     <div>
