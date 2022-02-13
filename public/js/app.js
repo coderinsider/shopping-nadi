@@ -5276,6 +5276,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['initialcategories'],
   data: function data() {
@@ -5289,6 +5291,21 @@ __webpack_require__.r(__webpack_exports__);
       if (confirm('Are you sure')) {
         this.categories.splice(index, 1);
       }
+    },
+    addCategory: function addCategory() {
+      var _this = this;
+
+      this.categories.push({
+        id: 0,
+        name: '',
+        image: '',
+        display_order: this.categories.length + 1
+      });
+      this.$nextTick(function () {
+        window.scrollTo(0, document.body.scrollHeight);
+
+        _this.$refs[''][0].focus();
+      });
     }
   }
 });
@@ -28328,66 +28345,34 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "form",
-    _vm._l(_vm.categories, function (category) {
-      return _c("div", { key: category.id }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: category.name,
-              expression: "category.name",
-            },
-          ],
-          attrs: { type: "text" },
-          domProps: { value: category.name },
-          on: {
-            input: function ($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(category, "name", $event.target.value)
-            },
-          },
-        }),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: category.display_order,
-              expression: "category.display_order",
-            },
-          ],
-          attrs: { type: "number" },
-          domProps: { value: category.display_order },
-          on: {
-            input: function ($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(category, "display_order", $event.target.value)
-            },
-          },
-        }),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "remove",
+    [
+      _c("a", { staticClass: "add", on: { click: _vm.addCategory } }, [
+        _vm._v("Add Category"),
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.categories, function (category) {
+        return _c("div", { key: category.id }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: category.name,
+                expression: "category.name",
+              },
+            ],
+            ref: category.name,
+            refInFor: true,
+            attrs: { type: "text" },
+            domProps: { value: category.name },
             on: {
-              click: function ($event) {
-                return _vm.removeCategory(_vm.index)
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(category, "name", $event.target.value)
               },
             },
-          },
-          [_vm._v("Delete")]
-        ),
-        _vm._v(" "),
-        _c("div", [
-          _c("img", {
-            attrs: { src: "/images/" + category.image, width: "100" },
           }),
           _vm._v(" "),
           _c("input", {
@@ -28395,27 +28380,67 @@ var render = function () {
               {
                 name: "model",
                 rawName: "v-model",
-                value: category.image,
-                expression: "category.image",
+                value: category.display_order,
+                expression: "category.display_order",
               },
             ],
-            attrs: { type: "text" },
-            domProps: { value: category.image },
+            attrs: { type: "number" },
+            domProps: { value: category.display_order },
             on: {
               input: function ($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(category, "image", $event.target.value)
+                _vm.$set(category, "display_order", $event.target.value)
               },
             },
           }),
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-      ])
-    }),
-    0
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "remove",
+              on: {
+                click: function ($event) {
+                  return _vm.removeCategory(_vm.index)
+                },
+              },
+            },
+            [_vm._v("Delete")]
+          ),
+          _vm._v(" "),
+          _c("div", [
+            category.image
+              ? _c("img", {
+                  attrs: { src: "/images/" + category.image, width: "100" },
+                })
+              : _c("label", [_vm._v("Image")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model.lazy",
+                  value: category.image,
+                  expression: "category.image",
+                  modifiers: { lazy: true },
+                },
+              ],
+              attrs: { type: "text" },
+              domProps: { value: category.image },
+              on: {
+                change: function ($event) {
+                  return _vm.$set(category, "image", $event.target.value)
+                },
+              },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+        ])
+      }),
+    ],
+    2
   )
 }
 var staticRenderFns = []
