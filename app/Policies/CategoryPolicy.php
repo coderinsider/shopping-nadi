@@ -22,7 +22,7 @@ class CategoryPolicy
      **/
     public function manage(User $user) {
         
-        //return $user->is_admin; // true
+        return $user->is_admin; // true
     }
     /**
      * Determine whether the user can view any models.

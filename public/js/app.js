@@ -5262,6 +5262,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -5278,6 +5280,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['initialcategories'],
   data: function data() {
@@ -5285,6 +5288,9 @@ __webpack_require__.r(__webpack_exports__);
       categories: _.cloneDeep(this.initialcategories),
       whoLoveMe: "Soe Pyae Tha Zin"
     };
+  },
+  created: function created() {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/categories/upsert');
   },
   methods: {
     removeCategory: function removeCategory(index) {

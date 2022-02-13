@@ -15,6 +15,7 @@
 	</form>
 </template>
 <script>
+	import axios from 'axios';
 	export default {
 		props: ['initialcategories'],
 		data() {
@@ -22,6 +23,9 @@
 				categories: _.cloneDeep(this.initialcategories),
 				whoLoveMe: "Soe Pyae Tha Zin",
 			}
+		},
+		created() {
+			axios.post('/api/categories/upsert');
 		},
 		methods: {
 			removeCategory(index) {
