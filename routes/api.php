@@ -14,4 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/categories/upsert', 'CategoryController@upsert');
+Route::prefix('/categories')->group(function() {
+	Route::post('/upsert', 'CategoryController@upsert');
+	Route::delete('/{category}', 'CategoryController@destroy');
+});
+

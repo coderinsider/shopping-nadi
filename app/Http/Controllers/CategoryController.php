@@ -27,9 +27,17 @@ class CategoryController extends Controller
             'categories' => $categories
         ]);
     }
-    public function upsert() {
+    public function upsert(Request $req) {
         $this->authorize('manage', 'App\Models\Category');
-        return ['success' => true];
+        $categories = $req->post('categories');
+        foreach($categories as $cat) {
+            if($cat['id']) {
+                Category::where('id', $cat['id'])->update($cat);
+            } else {
+                Category::create($cat);
+            }
+        }
+        return ['success' => true, 'data' => $this->category->all()];
     }
     /**
      * Show the form for creating a new resource.
@@ -92,8 +100,16 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category, $id)
     {
         //
+        $this->authorize('delete', $category);
+        $deleteNow = $this->category->where('id', $id)->delete();
+        if($deleteNow) {
+            return ['success' => true];
+        } else {
+            return $category;
+        }
+        
     }
 }

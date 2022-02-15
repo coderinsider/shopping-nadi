@@ -5280,21 +5280,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['initialcategories'],
   data: function data() {
     return {
+      feedback: '',
       categories: _.cloneDeep(this.initialcategories),
       whoLoveMe: "Soe Pyae Tha Zin"
     };
   },
-  created: function created() {
-    axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/categories/upsert');
-  },
   methods: {
     removeCategory: function removeCategory(index) {
+      var __self = this;
+
+      console.log(index.id);
+
       if (confirm('Are you sure')) {
+        console.log(index);
+        var id = this.categories.length;
+        console.info(id);
+
+        if (id > 0) {
+          axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('/api/categories/' + index.id).then(function (resp) {
+            console.log("Successfully ".concat(resp.data));
+          })["catch"](function (error) {
+            console.error('failed');
+          });
+        }
+
         this.categories.splice(index, 1);
       }
     },
@@ -5311,6 +5327,20 @@ __webpack_require__.r(__webpack_exports__);
         window.scrollTo(0, document.body.scrollHeight);
 
         _this.$refs[''][0].focus();
+      });
+    },
+    saveCategory: function saveCategory() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/categories/upsert', {
+        categories: this.categories
+      }).then(function (resp) {
+        if (resp.data.success) {
+          _this2.feedback = "Change Saved";
+          _this2.categories = resp.data.data;
+        }
+      })["catch"](function (error) {
+        _this2.feedback = error;
       });
     }
   }
@@ -28351,6 +28381,14 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "form",
+    {
+      on: {
+        submit: function ($event) {
+          $event.preventDefault()
+          return _vm.saveCategory.apply(null, arguments)
+        },
+      },
+    },
     [
       _c("a", { staticClass: "add", on: { click: _vm.addCategory } }, [
         _vm._v("Add Category"),
@@ -28408,7 +28446,7 @@ var render = function () {
               staticClass: "remove",
               on: {
                 click: function ($event) {
-                  return _vm.removeCategory(_vm.index)
+                  return _vm.removeCategory(category)
                 },
               },
             },
@@ -28445,6 +28483,10 @@ var render = function () {
           _c("hr"),
         ])
       }),
+      _vm._v(" "),
+      _c("button", { attrs: { type: "submit" } }, [_vm._v("Save")]),
+      _vm._v(" "),
+      _c("div", { domProps: { textContent: _vm._s(_vm.feedback) } }),
     ],
     2
   )
