@@ -20,3 +20,4 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/categories', 'CategoryController@index')->name('categroyhome');
+Route::get('/menu-editor', 'AdminController@menu')->middleware('can:edit-menu');
