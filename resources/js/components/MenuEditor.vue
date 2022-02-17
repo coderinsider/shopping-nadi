@@ -5,26 +5,30 @@
 	</div>
 </template>
 <script>
-import VueRouter from 'vue-router';
+
+import { createRouter, createWebHistory }  from 'vue-router';
+import MenuItem from './MenuItem.vue'
 import CategoryManager from './CategoryManager.vue';
-import MenuItem from './MenuItem.vue';
+
 export default {
-	router: new VueRouter({
+	router: new createRouter({
+		mode: 'history',
+		history: createWebHistory(),
 		routes: [
-			{
-				path: '/categories',
-				name: 'categories',
-				component: CategoryManager
-			}, 
-			{
-				path: '/',
-				redirect: {name: 'categories'}
-			},
-			{
-				path: '/add-item',
-				name: 'add-item',
-				component: MenuItem
-			}	
+		  {
+		    path: '/categories',
+		    name: 'categories',
+		    component: MenuItem
+		  },
+		  {
+		  	path: '/',
+		  	redirect: { name: 'categories'}
+		  },
+		  {
+		  	path: '/add-item',
+		  	name: 'add-item',
+		  	component: MenuItem
+		  }
 		]
 	})
 }

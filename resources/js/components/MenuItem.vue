@@ -1,5 +1,5 @@
 <template>
-	<form>
+	<div>
 		Add / Edit item
-	</form>
+	</div>
 </template>

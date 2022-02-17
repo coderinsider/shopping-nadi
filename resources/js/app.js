@@ -7,7 +7,7 @@
 require('./bootstrap');
 // window.Vue = require('vue');
 import { createApp } from 'vue';
-import { VueRouter } from 'vue-router';
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
